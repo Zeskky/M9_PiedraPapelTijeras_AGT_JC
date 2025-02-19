@@ -19,16 +19,17 @@ void handle_client(SOCKET server_socket, SOCKADDR_IN client1, SOCKADDR_IN client
     int client1_len = sizeof(client1);
     int client2_len = sizeof(client2);
 
+    // Solicitamos una jugada a ambos clientes
     std::string msg = "Tu jugada (piedra, papel, tijeras): ";
     sendto(server_socket, msg.c_str(), msg.size(), 0, (sockaddr*)&client1, client1_len);
     sendto(server_socket, msg.c_str(), msg.size(), 0, (sockaddr*)&client2, client2_len);
 
-    // Solicitar jugada a cliente 1
+    // Obtenemos la jugada del cliente 1
     int bytes1 = recvfrom(server_socket, buffer, 512, 0, (sockaddr*)&client1, &client1_len);
     std::string move1 = buffer;
     buffer[bytes1] = '\0';
 
-    // Solicitar jugada a cliente 2
+    // Obtenemos la jugada del cliente 2
     int bytes2 = recvfrom(server_socket, buffer, 512, 0, (sockaddr*)&client2, &client2_len);
     std::string move2 = buffer;
     buffer[bytes2] = '\0';
